@@ -201,9 +201,9 @@ def fa_get (ffile,chrom,fstart,fend):
 	pileupline = outp_file.stdout.read().split()
 	pileupline =''.join(pileupline[1:])
 	if len(pileupline)<1:
-			print 'no such reference sequence',cmd_line
+			print('no such reference sequence',cmd_line)
 	if options.verbose:
-		print ' '.join(cmd_line)
+		print(' '.join(cmd_line))
 	return pileupline
 	
 		
@@ -272,7 +272,7 @@ line_counter = 0
 for line in sys.stdin: 
 	if '@' in line[0]: 
 		if options.header:
-			print line.rstrip('\n')
+			print(line.rstrip('\n'))
 		continue
 	line_counter +=1
 	line=line.rstrip('\n')
@@ -315,7 +315,7 @@ for line in sys.stdin:
 		if 'S' not in cigar:
 			continue
 	if 'H' in cigar or 'P' in cigar or 'N' in cigar:
-		print >>sys.stderr,'cigar found:',cigar,'PMDtools only supports cigar operations M, I, S and D, the alignment has been excluded'
+		print(sys.stderr.write(),'cigar found:',cigar,'PMDtools only supports cigar operations M, I, S and D, the alignment has been excluded')
 		continue
 	if MAPQ < options.mapq: 
 		continue
@@ -415,7 +415,7 @@ for line in sys.stdin:
 			ref_seq=''
 			newread =''
 			alignmentcounter=0
-			for x,r in zip(xrange(0,len(col[9])),read):
+			for x,r in zip(range(0,len(col[9])),read):
 				if x in insertions:
 					ref_seq += '-'
 					newread += read[x]
@@ -520,11 +520,11 @@ for line in sys.stdin:
 			if i >= options.basic: break
 			if options.cpg:
 				if b == 'C' and a=='T' and ((ord(quals[i])-33) > options.baseq) and (real_ref_seq[i+1] == 'G'): 
-					print line.rstrip('\n')
+					print(line.rstrip('\n'))
 					break
 
 			elif b == 'C' and a=='T' and ((ord(quals[i])-33) > options.baseq): 
-				print line.rstrip('\n')
+				print(line.rstrip('\n'))
 				break
 				
 	"""
@@ -535,13 +535,13 @@ for line in sys.stdin:
 		a,b = real_read[0],real_ref_seq[0]
 		if b == 'C' and a=='T' and ((ord(quals[0])-33) > options.baseq): 
 			#print a,b
-			print line.rstrip('\n')
+			print(line.rstrip('\n'))
 			continue
 			#break
 		a,b = real_read[::-1][0],real_ref_seq[::-1][0]
 		#i=len(real_read)-1
 		if b == 'G' and a=='A' and ((ord(quals[::-1][0])-33) > options.baseq): 
-			print line.rstrip('\n')
+			print(line.rstrip('\n'))
 			continue
 			#break
 		#continue
@@ -599,7 +599,7 @@ for line in sys.stdin:
 				if b == 'C' and a=='T' and ((ord(quals[leipnum])-33) >= options.baseq): 
 					Leipzigsimple =True
 		if Leipzigsimple:
-			print line
+			print(line)
 		else:
 			line=line.rstrip('\n')+'\t'+'LS:Z:'+'0'
 			continue
@@ -965,7 +965,7 @@ for line in sys.stdin:
 					continue
 				
 			if options.printDS:
-				print LR,maxPMDSval,maxPMDSval,maxPMDSval*readlen,readlen
+				print(LR,maxPMDSval,maxPMDSval,maxPMDSval*readlen,readlen)
 			#LR=LR/LRnumerator
 		quals=newquals	
 
@@ -1019,23 +1019,23 @@ for line in sys.stdin:
 		if reverse:
 			maskedread=revcomp(maskedread)
 		maskedread=''.join(mr for mr in maskedread if mr !='-')
-		print real_read
-		print real_ref_seq
-		print maskedread
-		print ''
+		print(real_read)
+		print(real_ref_seq)
+		print(maskedread)
+		print('')
 
 	if options.printDS:
-		print L_D,'\t',L_M,'\t',L_D/L_M,'\t',LR#   ,'\t',readlen,'\t',perc_identity,'\t',perc_identity*(math.log((L_D/L_M)))
+		print(L_D,'\t',L_M,'\t',L_D/L_M,'\t',LR)#   ,'\t',readlen,'\t',perc_identity,'\t',perc_identity*(math.log((L_D/L_M)))
 
 	if options.dry:
 		if len(line) <1:continue
-		print line.rstrip('\n')
+		print(line.rstrip('\n'))
 		continue
 	
 	if options.threshold > (-10000) or options.upperthreshold < (1000000): 
 
 		if LR >= options.threshold and LR < options.upperthreshold:
-			print line.rstrip('\n')
+			print(line.rstrip('\n'))
 		else:
 			excluded_threshold +=1
 
@@ -1061,14 +1061,14 @@ for line in sys.stdin:
 				quals2+=str(qnum)[1]
 		#print MD,cigar,reverse
 		#print col[9]
-		print real_read
-		print mismatch_string
-		print real_ref_seq
-		print quals
-		print quals1
-		print quals2
+		print(real_read)
+		print(mismatch_string)
+		print(real_ref_seq)
+		print(quals)
+		print(quals1)
+		print(quals2)
 		#print col[10]
-		print ''
+		print('')
 	passed+=1
 	if passed >= options.maxreads:break
 
@@ -1078,19 +1078,19 @@ if options.first:
 	SE=math.sqrt((freq*(1.0-freq))/n)
 	if freq==0.0:
 		SE='NA'
-	print 'C>T_at_1st_position_and_SE:','\t',freq,'\t',SE#,'\t',n,firstC,firstT
+	print('C>T_at_1st_position_and_SE:','\t',freq,'\t',SE)#,'\t',n,firstC,firstT
 
 
 if options.stats:
-	print >>sys.stderr,'""""""""""""""""""""""""""""""""'
-	print >>sys.stderr,'" excluded due to clipping:',clipexcluded
-	print >>sys.stderr,'" excluded due to indels:',indelexcluded
-	print >>sys.stderr,'" no MD field:',noMD
-	print >>sys.stderr,'" no G or C in ref:',noGCexcluded
-	print >>sys.stderr,'" total seqs:',passed
-	print >>sys.stderr,'" excluded due to PMD score <',str(int(options.threshold))+':',excluded_threshold
-	print >>sys.stderr,'" passed seqs:',(passed-excluded_threshold)
-	print >>sys.stderr,'""""""""""""""""""""""""""""""""'
+	print(sys.stderr.write(),'""""""""""""""""""""""""""""""""')
+	print(sys.stderr.write(),'" excluded due to clipping:',clipexcluded)
+	print(sys.stderr.write(),'" excluded due to indels:',indelexcluded)
+	print(sys.stderr.write(),'" no MD field:',noMD)
+	print(sys.stderr.write(),'" no G or C in ref:',noGCexcluded)
+	print(sys.stderr.write(),'" total seqs:',passed)
+	print(sys.stderr.write(),'" excluded due to PMD score <',str(int(options.threshold))+':',excluded_threshold)
+	print(sys.stderr.write(),'" passed seqs:',(passed-excluded_threshold))
+	print(sys.stderr.write(),'""""""""""""""""""""""""""""""""')
 
 
 if options.deamination:
@@ -1112,18 +1112,18 @@ if options.deamination:
 			itotaldict[i]=itotal
 			ztotaldict[i]=ztotal
 
-		print 'z\t','\t'.join(pairs)
+		print('z\t','\t'.join(pairs))
 
 
 		for i in range(0,options.range):
-			print str(i)+'\t',
+			print(str(i)+'\t',)
 			for p in pairs:
 				thekey=p+str(i)
 				if 'C' in p[0]:
 					try:
 						thecount=mismatch_dict[thekey]
 					except KeyError: 
-						print '0.00000\t',
+						print('0.00000\t',)
 						continue
 					thetotal=itotaldict[i]
 					frac=1.0*thecount/thetotal
@@ -1131,12 +1131,12 @@ if options.deamination:
 					try:
 						thecount=mismatch_dict_rev[thekey]
 					except KeyError: 
-						print '0.00000\t',
+						print('0.00000\t',)
 						continue
 					thetotal=ztotaldict[i]
 					frac=1.0*thecount/thetotal
-				print str(round(frac,5))+'\t',
-			print ''
+				print(str(round(frac,5))+'\t',)
+			print('')
 
 if options.platypus:
 	if True:
@@ -1183,32 +1183,32 @@ if options.platypus:
 				CpG_ztotaldict[str(i)+base]=ztotal
 				#print i,base,itotal
 				
-		print 'z\t',
+		print('z\t',)
 		for p in pairs:
-			print p+'5'+'\t',
+			print(p+'5'+'\t',)
 
 		for p in pairs:
-			print p+'3'+'\t',
+			print(p+'3'+'\t',)
 		for p in pairs:
-			print p+'_CpG_5'+'\t',
+			print(p+'_CpG_5'+'\t',)
 
 		for p in pairs:
-			print p+'_CpG_3'+'\t',
-		print ''
+			print(p+'_CpG_3'+'\t',)
+		print('')
 		
 		
 		for i in range(0,options.range):
-			print str(i)+'\t',
+			print(str(i)+'\t',)
 			for p in pairs:
 				thekey=p+str(i)
 				try:
 					thecount=mismatch_dict[thekey]
 				except KeyError: 
-					print '0\t',
+					print('0\t',)
 					continue
 				thetotal=itotaldict[str(i)+p[0]]
 				frac=1.0*thecount/thetotal
-				print str(round(frac,4))+'\t',
+				print(str(round(frac,4))+'\t',)
 				#print str(frac)+'\t',
 			#print ''
 			
@@ -1218,11 +1218,11 @@ if options.platypus:
 				try:
 					thecount=mismatch_dict_rev[thekey]
 				except KeyError: 
-					print '0\t',
+					print('0\t',)
 					continue
 				thetotal=ztotaldict[str(i)+p[0]]
 				frac=1.0*thecount/thetotal
-				print str(round(frac,4))+'\t',
+				print(str(round(frac,4))+'\t',)
 				#print str(frac)+'\t',
 
 			pairs=['CT','CA','CG','CC','GA','GT','GC','GG','AA','AT','AC','AG','TA','TT','TC','TG']
@@ -1231,11 +1231,11 @@ if options.platypus:
 				try:
 					thecount=mismatch_dict_CpG[thekey]
 				except KeyError: 
-					print '0\t',
+					print('0\t',)
 					continue
 				thetotal=CpG_itotaldict[str(i)+p[0]]
 				frac=1.0*thecount/thetotal
-				print str(round(frac,4))+'\t',
+				print(str(round(frac,4))+'\t',)
 				#print str(frac)+'\t',
 			#print ''
 			
@@ -1245,13 +1245,13 @@ if options.platypus:
 				try:
 					thecount=mismatch_dict_CpG_rev[thekey]
 				except KeyError: 
-					print '0\t',
+					print('0\t',)
 					continue
 				thetotal=CpG_ztotaldict[str(i)+p[0]]
 				frac=1.0*thecount/thetotal
-				print str(round(frac,4))+'\t',
+				print(str(round(frac,4))+'\t',)
 				#print str(frac)+'\t',
-			print ''
+			print('')
 			
 			
 if options.basecomposition:
@@ -1275,18 +1275,18 @@ if options.basecomposition:
 			itotaldict[i]=itotal
 			ztotaldict[i]=ztotal
 
-		print 'z\t','\t'.join(pairs)
+		print('z\t','\t'.join(pairs))
 
 
 		for i in range(-backoffset,options.range):
-			print str(i)+'\t',
+			print(str(i)+'\t',)
 			for p in pairs:
 				thekey=p+str(i)
 				if '5' in p[0]:
 					try:
 						thecount=composition_dict[thekey]
 					except KeyError: 
-						print '0.00000\t',
+						print( '0.00000\t',)
 						continue
 					thetotal=itotaldict[i]
 					frac=1.0*thecount/thetotal
@@ -1294,9 +1294,9 @@ if options.basecomposition:
 					try:
 						thecount=composition_dict_rev[thekey]
 					except KeyError: 
-						print '0.00000\t',
+						print( '0.00000\t',)
 						continue
 					thetotal=ztotaldict[i]
 					frac=1.0*thecount/thetotal
-				print str(round(frac,5))+'\t',
-			print ''
+				print( str(round(frac,5))+'\t',)
+			print( '')
