@@ -1,3 +1,11 @@
+# EDIT January 2021
+
+This repository is planned to develop a fix for PMDtools incompatibility with Python3.
+
+Fixes: add parentheses to print commands, fix xrange usage to range, standard error output to python3 format.
+
+For details on installation and usage see the original README text belos.
+
 # PMDtools
 Compute postmortem damage patterns and decontaminate ancient genomes. 
 
